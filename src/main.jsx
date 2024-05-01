@@ -4,7 +4,7 @@ import { useReducer } from 'react'
 import { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
-import './index.css'
+//import './index.css'
 
 
 import {
@@ -16,7 +16,7 @@ import {
 
 // project styles
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
+//import './App.css'
 
 
 import App from './App'
@@ -56,10 +56,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <RouterProvider router={router} />
 <App />
 )
-
-
-
-
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
