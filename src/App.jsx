@@ -17,38 +17,29 @@ To-Do List
     </div>
 )}
 
+// let getStore = JSON.parse(localStorage.getItem('todo'))
+// console.log('storeage test',getStore)
 
-export const initialState = {
-  todos: [
-  //   {
-  //   todoID: 0,
-  //   todoTitle: "",
-  //   todoDescription: "",
-  //   todoDate: 0,
-  //   todoDue: 0
-  // }
-]
-}
-
-function newTodo(){
-  return {}
-}
-
-const checkTodoID  = () => {
-  if (todoID === null){
-    todoId = todos.length
+export const initialState = () => 
+{ 
+  let getStore = JSON.parse(localStorage.getItem('todoList'))
+  console.log('storeage in init',getStore)
+  if (getStore) {
+    return {todos: getStore}
+  } else {
+    return {todos: []}
   }
 }
 
-// useEffect(() => {
-//   localStorage.setItem('todo')
-// }[state, title, description])
+
 
 const reducer = (state, action) => {
   switch(action.type){
     case 'todoTitleInput':
       console.log('there', action)
-      return {todos: [...state.todos, {todoID: state.todos.length + 1, todoTitle: action.todoTitle, todoDescription: action.todoDescription}]};
+      return {todos: [...state.todos, {todoID: state.todos.length + 1, 
+        todoTitle: action.todoTitle, 
+        todoDescription: action.todoDescription}]};
       // current date should also be here
     case 'todoDescirption':
       return {};
@@ -58,20 +49,26 @@ const reducer = (state, action) => {
 }
 
 
+
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  //let temp = initialState()
+  const [state, dispatch] = useReducer(reducer, initialState())
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  console.log(state)
+  console.log(state.todos)
 
+  
   function clearForm(){
     setTitle(''),
     setDescription('')
   }
 
   useEffect(() => {
-    localStorage.setItem('todo', JSON.stringify(state.todos))
-  }, [state.todos])
+    localStorage.setItem('todoList', JSON.stringify(state.todos))
+  }, [state.todos.length])
+  
+  // let getStore = JSON.parse(localStorage.getItem('todoList'))
+  // console.log('storeage test',getStore)
 
   return (
 <div>

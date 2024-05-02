@@ -19,3 +19,36 @@
 <p className="read-the-docs">
 Click on the Vite and React logos to learn more
 </p> */}
+
+
+export const initialState = () => 
+{ 
+  let getStore = JSON.parse(localStorage.getItem('todoList'))
+  console.log('storeage test',getStore)
+  if (getStore) {
+    return getStore
+  } else {
+    return {todos: []}
+  }
+}
+
+export const initialState = {
+  todos: [
+  //   {
+  //   todoID: 0,
+  //   todoTitle: "",
+  //   todoDescription: "",
+  //   todoDate: 0,
+  //   todoDue: 0
+  // }
+]
+}
+
+
+{if state.todos.map(todo => (
+  <div key={todo.todoID}>
+    Todo: {todo.todoID}: {todo.todoTitle}
+    <br></br>
+    {todo.todoDescription}
+  </div>
+))}
