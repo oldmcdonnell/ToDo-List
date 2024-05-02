@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { useReducer } from 'react'
@@ -40,6 +40,10 @@ const checkTodoID  = () => {
   }
 }
 
+// useEffect(() => {
+//   localStorage.setItem('todo')
+// }[state, title, description])
+
 const reducer = (state, action) => {
   switch(action.type){
     case 'todoTitleInput':
@@ -64,6 +68,10 @@ function App() {
     setTitle(''),
     setDescription('')
   }
+
+  useEffect(() => {
+    localStorage.setItem('todo', JSON.stringify(state.todos))
+  }, [state.todos])
 
   return (
 <div>
