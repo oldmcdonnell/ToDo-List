@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { useReducer } from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card';
+
+
 //import Container from 'react-bootstrap/Container'
 import './App.css'
 let count = 0
@@ -34,10 +38,6 @@ export const initialState = () =>
   }
 }
 
-const setEditFields = () => {
-  tempTitle.value= action.todoTitle
-  tempDescription.value = action.todoDescription
-}
 
 const reducer = (state, action) => {
   switch(action.type){
@@ -70,11 +70,8 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState())
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [idForTodo, setIdForTodo] = useState('')
 
-  //console.log(state.todos)
-
-  
+  //clear items from inputs
   function clearForm(){
     setTitle(''),
     setDescription('')
@@ -83,28 +80,35 @@ function App() {
   useEffect(() => {
     localStorage.setItem('todoList', JSON.stringify(state.todos))
     clearForm()
-    setEdit(false)
-    setEditID(0)
-  }, [state.todos])
+    setEdit(false) //todo state changes so we set edit back to false changing the button
+    setEditID(0)  //and destination. also reset editID
+  }, [state.todos]) //we are just looking at the todos state for changes
   
-
 
   return (
 <div>
     <Title />
+    <Card>
+      ToDo Title
     <input 
     id='titleBox'
     type="text" 
     value={title}
     onChange={(e)=> setTitle(e.target.value)}>
     </input>
+    </Card>
+    <Card>
+     Todo Description
     <input 
     id='decriptionBox'
     type="text" 
     value={description}
     onChange={(e)=> setDescription(e.target.value)}>
     </input>
-    <button onClick={() => dispatch({type: edit ? "todoEdit" : "todoTitleInput", editID: editID, todoTitle: title, todoDescription: description})}>{edit ? "Save" : "Submit"}</button>
+    </Card>
+    {/* //submit button or if edit is true this is a save button that directs to the edit  */}
+    <button onClick={() => dispatch({type: edit ? "todoEdit" : "todoTitleInput", editID: editID, 
+    todoTitle: title, todoDescription: description})}>{edit ? "Save" : "Submit"}</button>
     <p></p>
     {state.todos.map(todo => (
       <div key={todo.todoID}>
@@ -112,8 +116,11 @@ function App() {
         <br></br>
         {todo.todoDescription}
         <br></br>
-        <button key={todo.todoID} onClick={() => {setTitle(todo.todoTitle); setDescription(todo.todoDescription); setEditID(todo.todoID); setEdit(true)}}>Edit</button>
+        {/* edit button that saves the edit ID */}
+        <button key={todo.todoID} onClick={() => {setTitle(todo.todoTitle); setDescription(todo.todoDescription); 
+          setEditID(todo.todoID); setEdit(true)}}>Edit</button>
           <br></br>
+          {/* delete button */}
         <button key={todo.todoTitle} onClick={() => dispatch({type:"todoDelete", todoID:todo.todoID, 
         todoTitle:todo.todoDescription, todoDescription:todo.todoDescription})}>Delete</button>
       </div>
