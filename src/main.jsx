@@ -3,10 +3,23 @@ import { createContext } from 'react'
 import { useReducer } from 'react'
 import { useState } from 'react'
 import ReactDOM from 'react-dom/client'
+export const ThemeContext = createContext()
 
 //import './index.css'
 
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState('dark')
+  const toggleTheme = () => {
+  setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
+  return (
+  <ThemeContext.Provider value={{ theme, toggleTheme }}>
+  {children}
+  </ThemeContext.Provider>
+  )
+}
 
+    
 import {
   createBrowserRouter,
   RouterProvider,
@@ -53,7 +66,9 @@ const router = createBrowserRouter([
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <ThemeProvider>
   <RouterProvider router={router} />
+  </ThemeProvider>
 )
 
 // ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,7 +1,6 @@
 function Footer() {
     return (
-      <div >
-        ToDo List
+      <div>
       </div>
     )
   }
