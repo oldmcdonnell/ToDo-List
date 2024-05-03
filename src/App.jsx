@@ -88,7 +88,7 @@ function App() {
   return (
 <div>
     <Title />
-    <Card>
+    <Card className='text-center'>
       ToDo Title
     <input 
     id='titleBox'
@@ -97,7 +97,7 @@ function App() {
     onChange={(e)=> setTitle(e.target.value)}>
     </input>
     </Card>
-    <Card>
+    <Card className='text-center'>
      Todo Description
     <input 
     id='decriptionBox'
